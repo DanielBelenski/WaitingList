@@ -1,5 +1,6 @@
 package com.example.waitinglist.utils;
 
+//imports
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;

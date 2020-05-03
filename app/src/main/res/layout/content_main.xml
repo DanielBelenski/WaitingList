@@ -8,12 +8,14 @@
     tools:context=".view.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <!-- View to hold student objects -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"/>
 
+    <!-- View for when there are no entries to display -->
     <TextView
         android:id="@+id/no_students_view"
         android:layout_width="wrap_content"

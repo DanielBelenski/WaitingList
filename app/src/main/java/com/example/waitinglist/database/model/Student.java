@@ -30,11 +30,11 @@ public class Student {
     }
 
     //constructor for student object with all information
-    public Student(int id, String name, String info, boolean priority){
+    public Student(int id, String name, String info, int priority){
         this.id = id;
         this.name = name;
         this.info = info;
-        this.priority = priority ? 1 : 0;
+        this.priority = priority;
     }
 
     //returns the id number of a student object

@@ -7,6 +7,7 @@
     android:paddingRight="@dimen/activity_margin"
     android:paddingTop="@dimen/activity_margin">
 
+    <!-- Title of dialog -->
     <TextView
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
@@ -19,6 +20,7 @@
         android:textSize="@dimen/lbl_new_note_title"
         android:textStyle="normal" />
 
+    <!-- Edit Text for student name -->
     <EditText
         android:id="@+id/studentInfo"
         android:layout_width="match_parent"
@@ -31,6 +33,7 @@
         android:textSize="@dimen/input_new_note"
         android:importantForAutofill="no" />
 
+    <!-- Edit text for course information -->
     <EditText
         android:id="@+id/classInfo"
         android:layout_width="match_parent"
@@ -43,6 +46,7 @@
         android:textSize="@dimen/input_new_note"
         android:importantForAutofill="no" />
 
+    <!-- edit text for entries priority level -->
     <EditText
         android:id="@+id/priorityEdit"
         android:layout_width="match_parent"

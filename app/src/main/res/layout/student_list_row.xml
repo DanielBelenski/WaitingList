@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/dimen_10"
     android:focusable="false">
 
+    <!-- Textview to display a student entries name -->
     <TextView
         android:id="@+id/studentName"
         android:layout_width="match_parent"
@@ -21,6 +22,7 @@
         android:textColor="@color/timestamp"
         android:textSize="@dimen/timestamp" />
 
+    <!-- Textview to display associated class information -->
     <TextView
         android:id="@+id/courseInfo"
         android:layout_width="match_parent"
@@ -31,6 +33,7 @@
         android:textColor="@color/note_list_text"
         android:textSize="@dimen/note_list_text" />
 
+    <!-- Text View to display priority level of entry -->
     <TextView
         android:id="@+id/priorityText"
         android:layout_width="wrap_content"

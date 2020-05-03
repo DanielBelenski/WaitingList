@@ -1,5 +1,6 @@
 package com.example.waitinglist.utils;
 
+//imports
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+//class to define how items are drawn on the screen and how far apart
 public class ItemDecorator extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{
