@@ -7,14 +7,15 @@
     android:paddingRight="@dimen/activity_margin"
     android:paddingTop="@dimen/activity_margin">
 
-    <TextView android:id="@+id/dialog_title"
+    <TextView
+        android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_10"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="8sp"
         android:text="@string/lbl_new_note_title"
-        android:textColor="@color/colorAccent"
+        android:textColor="#FB3838"
         android:textSize="@dimen/lbl_new_note_title"
         android:textStyle="normal" />
 
@@ -27,8 +28,8 @@
         android:hint="@string/hint_enter_note"
         android:inputType="textCapSentences|textMultiLine"
         android:lines="4"
-        android:textColorHint="@color/hint_enter_note"
-        android:textSize="@dimen/input_new_note" />
+        android:textSize="@dimen/input_new_note"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/classInfo"
@@ -39,13 +40,16 @@
         android:hint="@string/hint_enter_note2"
         android:inputType="textCapSentences|textMultiLine"
         android:lines="4"
-        android:textColorHint="@color/hint_enter_note"
-        android:textSize="@dimen/input_new_note" />
+        android:textSize="@dimen/input_new_note"
+        android:importantForAutofill="no" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <EditText
+        android:id="@+id/priorityEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Priority" />
+        android:ems="10"
+        android:hint="@string/_1_5_freshman_to_graduate"
+        android:inputType="number"
+        android:importantForAutofill="no" />
 
 </LinearLayout>

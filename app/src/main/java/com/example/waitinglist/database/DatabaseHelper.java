@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.waitinglist.database.model.Student;
 
@@ -18,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     //database name for database creation
-    public static final String DATABASE_NAME = "students_db";
+    public static final String DATABASE_NAME = "Students.db";
 
     //creates database and object to interact with it
     public DatabaseHelper(Context context){
@@ -38,19 +39,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //method to insert a student objects information into the database
-    public long insertStudent(String name, String course, boolean priority){
+    public long insertStudent(String name, String course, int priority){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues values = new ContentValues(3);
 
         values.put(Student.COLUMN_NAME, name);
         values.put(Student.COLUMN_COURSE, course);
-        if (priority){
-            values.put(Student.PRIORITY, 1);
-        }
-        else{
-            values.put(Student.PRIORITY, 0);
-        }
+        values.put(Student.PRIORITY,priority);
 
         long id = db.insert(Student.TABLE_NAME, null, values);
 
@@ -65,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(Student.TABLE_NAME,
                 new String[]{Student.COLUMN_ID, Student.COLUMN_NAME, Student.COLUMN_COURSE, Student.PRIORITY},
-                Student.COLUMN_ID+"=?",
+                Student.COLUMN_ID+" =?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null){
@@ -93,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //remove a student from the database
     public void deleteStudent(Student student){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Student.TABLE_NAME, Student.COLUMN_ID + "=" + String.valueOf(student.getId()), new String[]{student.getStudent()});
+        db.delete(Student.TABLE_NAME, Student.COLUMN_ID + "=?",new String[]{String.valueOf(student.getId())});
         db.close();
     }
 
@@ -112,7 +108,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 student.setId(cursor.getInt(cursor.getColumnIndex(Student.COLUMN_ID)));
                 student.setStudent(cursor.getString(cursor.getColumnIndex(Student.COLUMN_NAME)));
                 student.setCourse(cursor.getString(cursor.getColumnIndex(Student.COLUMN_COURSE)));
-                student.setPriority(cursor.getInt(cursor.getColumnIndex(Student.PRIORITY)) == 1);
+                student.setPriority(cursor.getInt(cursor.getColumnIndex(Student.PRIORITY)));
+
+                students.add(student);
             } while(cursor.moveToNext());
         }
 
@@ -140,13 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Student.COLUMN_NAME, student.getStudent());
         values.put(Student.COLUMN_COURSE, student.getCourse());
-        boolean tempPriority = student.getPriority();
-        int priority;
-        if (tempPriority)
-            priority = 1;
-        else
-            priority = 0;
-        values.put(Student.PRIORITY, priority);
+        values.put(Student.PRIORITY, student.getPriority());
 
         return db.update(Student.TABLE_NAME, values, Student.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(student.getId())});

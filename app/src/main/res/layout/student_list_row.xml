@@ -7,24 +7,17 @@
     android:paddingBottom="@dimen/dimen_10"
     android:paddingLeft="@dimen/activity_margin"
     android:paddingRight="@dimen/activity_margin"
-    android:paddingTop="@dimen/dimen_10">
-
-    <TextView
-        android:id="@+id/dot"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dot_height"
-        android:layout_marginRight="@dimen/dot_margin_right"
-        android:layout_marginTop="@dimen/dimen_10"
-        android:includeFontPadding="false"
-        android:textColor="@color/colorAccent"
-        android:lineSpacingExtra="0dp"
-        android:textSize="@dimen/dot_text_size" />
+    android:paddingTop="@dimen/dimen_10"
+    android:focusable="false">
 
     <TextView
         android:id="@+id/studentName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/dot"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/timestamp"
         android:textSize="@dimen/timestamp" />
 
@@ -33,16 +26,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/studentName"
-        android:layout_toRightOf="@id/dot"
+        android:layout_alignStart="@+id/studentName"
+        android:layout_marginStart="0dp"
         android:textColor="@color/note_list_text"
         android:textSize="@dimen/note_list_text" />
 
-    <CheckBox
+    <TextView
+        android:id="@+id/priorityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/priority"
-        android:layout_below="@id/courseInfo"
-        android:layout_toRightOf="@id/dot"
-        />
+        android:layout_below="@+id/courseInfo"
+        android:layout_alignStart="@+id/courseInfo"
+        android:text="" />
 
 </RelativeLayout>

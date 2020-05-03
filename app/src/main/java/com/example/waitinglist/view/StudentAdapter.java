@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -26,15 +27,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView course;
-        public TextView dot;
         public TextView name;
-        public CheckBox priority;
+        public TextView priority;
 
         public MyViewHolder(View view) {
             super(view);
             course = view.findViewById(R.id.courseInfo);
-            dot = view.findViewById(R.id.dot);
             name = view.findViewById(R.id.studentName);
+            priority = view.findViewById(R.id.priorityText);
         }
     }
 
@@ -57,9 +57,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.MyViewHo
 
         holder.name.setText(student.getStudent());
         holder.course.setText(student.getCourse());
-        holder.priority.setActivated(student.getPriority());
-
-        holder.dot.setText(Html.fromHtml("&#8226;"));
+        holder.priority.setText(String.valueOf(student.getPriority()));
     }
 
     @Override

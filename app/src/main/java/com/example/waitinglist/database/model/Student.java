@@ -6,10 +6,10 @@ public class Student {
     public static final String TABLE_NAME = "Students";
 
     //immutable strings of column identifiers to minimize typos
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_NAME = "Student_Name";
-    public static final String COLUMN_COURSE = "Course_Info";
-    public static final String PRIORITY = "Priority";
+    public static final String COLUMN_ID = "ID";
+    public static final String COLUMN_NAME = "NAME";
+    public static final String COLUMN_COURSE = "COURSE";
+    public static final String PRIORITY = "PRIORITY";
 
     //attributes of the student object, these correspond to database columns
     private int id;
@@ -20,9 +20,9 @@ public class Student {
     //String to create the database table, to improve readability
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_NAME + "TEXT,"
-            + COLUMN_COURSE + "TEXT,"
-            + PRIORITY + "INTEGER)";
+            + COLUMN_NAME + " TEXT,"
+            + COLUMN_COURSE + " TEXT,"
+            + PRIORITY + " INTEGER)";
 
     //constructor for blank student object
     public Student(){
@@ -66,18 +66,13 @@ public class Student {
     }
 
     //get priority status of a student object
-    public boolean getPriority(){
+    public int getPriority(){
         int priority = this.priority;
-        return (priority == 1);
+        return (priority);
     }
 
     //set priority status of a student object
-    public void setPriority(boolean priority){
-        if (priority){
-            this.priority = 1;
-        }
-        else{
-            this.priority = 0;
-        }
+    public void setPriority(int priority){
+        this.priority = priority;
     }
 }

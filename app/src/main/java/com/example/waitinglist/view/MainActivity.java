@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        studentsList = db.getAllStudents();
+        studentsList.addAll(db.getAllStudents());
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new ItemDecorator(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
 
+        for (int i = 0; i < studentsList.size(); i++){
+            updateStudent(studentsList.get(i).getStudent(),studentsList.get(i).getCourse(),studentsList.get(i).getPriority(),i);
+        }
+
         toggleEmptyStudents();
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new RecyclerTouchListener.ClickListener() {
@@ -87,13 +91,15 @@ public class MainActivity extends AppCompatActivity {
         }));
     }
 
-    public void createStudent(String name, String course, boolean priority){
+    public void createStudent(String name, String course, int priority){
         long id = db.insertStudent(name, course, priority);
 
         Student student = db.getStudent(id);
 
         if (student != null){
-            studentsList.add(0, student);
+            studentsList.clear();
+
+            studentsList.addAll(db.getAllStudents());
 
             mAdapter.notifyDataSetChanged();
 
@@ -101,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateStudent(String name, String course, boolean priority, int position){
+    public void updateStudent(String name, String course, int priority, int position){
         Student student = studentsList.get(position);
 
         student.setStudent(name);
@@ -152,15 +158,15 @@ public class MainActivity extends AppCompatActivity {
         alertDialogBuilderUserInput.setView(view);
 
         final EditText inputName = view.findViewById(R.id.studentInfo);
-        final EditText inputCourse = view.findViewById(R.id.courseInfo);
-        final CheckBox inputPriority = view.findViewById(R.id.checkBox);
+        final EditText inputCourse = view.findViewById(R.id.classInfo);
+        final EditText inputPriority = view.findViewById(R.id.priorityEdit);
         TextView dialogTitle = view.findViewById(R.id.dialog_title);
         dialogTitle.setText(!shouldUpdate ? getString(R.string.lbl_new_note_title) : getString(R.string.lbl_edit_note_title));
 
         if (shouldUpdate && student != null){
             inputName.setText(student.getStudent());
             inputCourse.setText(student.getCourse());
-            inputPriority.setActivated(student.getPriority());
+            inputPriority.setText(String.valueOf(student.getPriority()));
         }
         alertDialogBuilderUserInput.setCancelable(false)
                 .setPositiveButton(shouldUpdate ? "update" : "save", new DialogInterface.OnClickListener() {
@@ -182,20 +188,31 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(inputName.getText().toString())){
+                if (inputName.getText().length() <= 0){
                     Toast.makeText(MainActivity.this, "Enter the student's name", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (TextUtils.isEmpty(inputCourse.getText().toString())){
+                }
+                else if (inputCourse.getText().length() <= 0){
                     Toast.makeText(MainActivity.this, "Enter the course information", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
+                }
+                else if (inputPriority.getText().length() <= 0 || Integer.parseInt(inputPriority.getText().toString()) < 1 || Integer.parseInt(inputPriority.getText().toString()) > 5){
+                    Toast.makeText(MainActivity.this, "Enter a valid priority number:\n" +
+                            "1 = Freshman\n" +
+                            "2 = Sophomore\n" +
+                            "3 = Junior\n" +
+                            "4 = Senior\n" +
+                            "5 = Graduate", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
                     alertDialog.dismiss();
                 }
 
                 if (shouldUpdate && student != null){
-                    updateStudent(inputName.getText().toString(), inputCourse.getText().toString(), inputPriority.isChecked(), position);
+                    updateStudent(inputName.getText().toString(), inputCourse.getText().toString(), Integer.parseInt(inputPriority.getText().toString()), position);
                 } else {
-                    createStudent(inputName.getText().toString(), inputCourse.getText().toString(), inputPriority.isChecked());
+                    createStudent(inputName.getText().toString(), inputCourse.getText().toString(), Integer.parseInt(inputPriority.getText().toString()));
                 }
 
             }
